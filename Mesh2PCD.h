@@ -7,7 +7,8 @@
 
 
 class Mesh2PCD {
-
+public:
+    
 };
 
 
