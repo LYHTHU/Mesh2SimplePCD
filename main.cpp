@@ -33,8 +33,8 @@ int main(int argc, char** argv) {
         }
     }
 
-    MeshSimplify *simplify = new MeshSimplify(path, visible);
-    simplify->simplify(15, 40);
+    MeshSimplify *simplify = new MeshSimplify(path, visible= true);
+    simplify->simplify(15, 30);
     string out_path = "./Data/tube_sim.off";
     simplify->save(out_path);
     return 0;

@@ -15,6 +15,10 @@ MeshSimplify::MeshSimplify(string path, bool visible) {
     }
     this->mesh = new Surface_mesh();
     input >> *(this->mesh);
+    if (!input) {
+        cerr << "Cannot load file " << endl;
+        exit(1);
+    }
 }
 
 MeshSimplify::~MeshSimplify() {
@@ -22,7 +26,24 @@ MeshSimplify::~MeshSimplify() {
     this->mesh = nullptr;
 }
 
-void MeshSimplify::simplify(int num_points, int num_faces) {
+void MeshSimplify::simplify(int num_points) {
+    if (this->visible) {
+        num_points = min(num_points, int(this->mesh->num_vertices()));
+        num_faces = min(num_faces, int(this->mesh->num_faces()));
+        printf("Reducing 3D mesh %s: %d vertices and %d faces. ===> %d vertices and %d faces.\n", this->path.c_str(),
+                this->mesh->num_vertices(), this->mesh->num_faces(), num_points, num_faces);
+    }
+    if (!CGAL::is_triangle_mesh(*(this->mesh))){
+        std::cerr << "Input geometry is not triangulated." << std::endl;
+        return;
+    }
+
+    SMS::Count_ratio_stop_predicate<Surface_mesh> stop(0.25);
+//    SMS::Count_stop_predicate<Surface_mesh> stop();
+    int r = SMS::edge_collapse(*(this->mesh), stop);
+    std::cout << "\nFinished...\n" << r << " edges removed.\n"
+              << this->mesh->number_of_edges() << " final edges.\n";
+    std::cout << this->mesh->number_of_vertices() << " final vertices.\n";
 
 }
 
