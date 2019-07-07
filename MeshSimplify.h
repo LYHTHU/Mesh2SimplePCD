@@ -9,6 +9,8 @@
 #include <iostream>
 #include <string>
 #include <CGAL/Polyhedron_3.h>
+#include <CGAL/IO/Polyhedron_iostream.h>
+
 
 typedef CGAL::Simple_cartesian<double> Kernel;
 typedef CGAL::Polyhedron_3<Kernel>     Polyhedron;
