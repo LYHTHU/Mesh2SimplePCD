@@ -7,30 +7,29 @@
 
 
 #include <iostream>
+#include <fstream>
 #include <string>
-#include <CGAL/Polyhedron_3.h>
-#include <CGAL/IO/Polyhedron_iostream.h>
-
+#include <CGAL/Simple_cartesian.h>
+#include <CGAL/Surface_mesh.h>
+#include <CGAL/Surface_mesh_simplification/edge_collapse.h>
+#include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/Count_ratio_stop_predicate.h>
 
 typedef CGAL::Simple_cartesian<double> Kernel;
-typedef CGAL::Polyhedron_3<Kernel>     Polyhedron;
+typedef Kernel::Point_3 Point_3;
+typedef CGAL::Surface_mesh<Point_3> Surface_mesh;
 
 using namespace std;
-using namespace CGAL;
 
 
 class MeshSimplify {
 public:
     string path;
     bool visible;
-    Polyhedron *mesh = nullptr;
-
+    Surface_mesh *mesh = nullptr;
     MeshSimplify(string path="", bool visible = false);
-    MeshSimplify(Polyhedron *obj, bool visible);
-
+    ~MeshSimplify();
     void simplify(int num_points, int num_faces);
-    void save(string out_path);
-
+    void save(string& out_path);
 };
 
 

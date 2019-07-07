@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
     int result;
 
     opterr = 0;
-    string path = "Data/tube.obj";
+    string path = "Data/tube.off";
     bool visible = false;
 
     while( (result = getopt(argc, argv, "f:v")) != -1 ) {
@@ -28,12 +28,14 @@ int main(int argc, char** argv) {
             case '?':
                 break;
             default:
-                path = "Data/tube.obj";
+                path = "Data/tube.off";
                 break;
         }
     }
 
     MeshSimplify *simplify = new MeshSimplify(path, visible);
-
+    simplify->simplify(15, 40);
+    string out_path = "./Data/tube_sim.off";
+    simplify->save(out_path);
     return 0;
 }
