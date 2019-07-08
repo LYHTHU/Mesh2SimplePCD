@@ -7,6 +7,6 @@ set(CMAKE_BUILD_TYPE "Release")
 
 find_package(CGAL)
 
-add_executable(Mesh2SimplePCD main.cpp MeshSimplify.cpp MeshSimplify.h Mesh2PCD.cpp Mesh2PCD.h)
+add_executable(Mesh2SimplePCD main.cpp MeshSimplify.cpp MeshSimplify.h)
 
 target_link_libraries(Mesh2SimplePCD CGAL::CGAL)

@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <string>
 #include <cstring>
-#include "Mesh2PCD.h"
 #include "MeshSimplify.h"
 
 using namespace std;

@@ -29,9 +29,8 @@ MeshSimplify::~MeshSimplify() {
 void MeshSimplify::simplify(int num_points) {
     if (this->visible) {
         num_points = min(num_points, int(this->mesh->num_vertices()));
-        num_faces = min(num_faces, int(this->mesh->num_faces()));
-        printf("Reducing 3D mesh %s: %d vertices and %d faces. ===> %d vertices and %d faces.\n", this->path.c_str(),
-                this->mesh->num_vertices(), this->mesh->num_faces(), num_points, num_faces);
+        printf("Reducing 3D mesh %s: %d vertices and %d faces. ===> %d vertices.\n", this->path.c_str(),
+                this->mesh->num_vertices(), this->mesh->num_faces(), num_points);
     }
     if (!CGAL::is_triangle_mesh(*(this->mesh))){
         std::cerr << "Input geometry is not triangulated." << std::endl;
