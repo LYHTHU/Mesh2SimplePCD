@@ -14,12 +14,16 @@ int main(int argc, char** argv) {
 
     opterr = 0;
     string path = "Data/tube.off";
-    bool visible = false;
+    string out_path = "./Data/tube_sim.off";
+    bool visible = true;
 
-    while( (result = getopt(argc, argv, "f:v")) != -1 ) {
+    while( (result = getopt(argc, argv, "f:o:v")) != -1 ) {
         switch (result) {
             case 'f':
                 path = optarg;
+                break;
+            case 'o':
+                out_path = optarg;
                 break;
             case 'v':
                 visible = true;
@@ -32,9 +36,9 @@ int main(int argc, char** argv) {
         }
     }
 
-    MeshSimplify *simplify = new MeshSimplify(path, visible= true);
-    simplify->simplify(15, 30);
-    string out_path = "./Data/tube_sim.off";
-    simplify->save(out_path);
+    MeshSimplify *simplify = new MeshSimplify(path, out_path, visible = visible);
+    simplify->simplify(15);
+
+    simplify->save_mesh(out_path);
     return 0;
 }

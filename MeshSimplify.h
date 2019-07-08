@@ -15,6 +15,7 @@
 #include <CGAL/Surface_mesh_simplification/edge_collapse.h>
 #include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/Count_ratio_stop_predicate.h>
 #include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/Count_stop_predicate.h>
+#include <CGAL/IO/write_xyz_points.h>
 
 typedef CGAL::Simple_cartesian<double> Kernel;
 typedef Kernel::Point_3 Point_3;
@@ -27,12 +28,16 @@ using namespace std;
 class MeshSimplify {
 public:
     string path;
+    string out_path;
     bool visible;
     Surface_mesh *mesh = nullptr;
-    MeshSimplify(string path="", bool visible = false);
+    MeshSimplify(string path="", string out_path = "", bool visible = false);
     ~MeshSimplify();
+
     void simplify(int num_points);
-    void save(string& out_path);
+    void save_mesh(string& out_path);
+    int to_xyz_norm(string& out_path);
+    int save_xyz(string &out_path);
 };
 
 

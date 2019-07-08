@@ -4,8 +4,9 @@
 
 #include "MeshSimplify.h"
 
-MeshSimplify::MeshSimplify(string path, bool visible) {
+MeshSimplify::MeshSimplify(string path, string out_path, bool visible) {
     this->path = path;
+    this->out_path = out_path;
     this->visible = visible;
     ifstream input(path);
     if (!input)
@@ -26,6 +27,7 @@ MeshSimplify::~MeshSimplify() {
     this->mesh = nullptr;
 }
 
+
 void MeshSimplify::simplify(int num_points) {
     if (this->visible) {
         num_points = min(num_points, int(this->mesh->num_vertices()));
@@ -40,13 +42,33 @@ void MeshSimplify::simplify(int num_points) {
     SMS::Count_ratio_stop_predicate<Surface_mesh> stop(0.25);
 //    SMS::Count_stop_predicate<Surface_mesh> stop();
     int r = SMS::edge_collapse(*(this->mesh), stop);
-    std::cout << "\nFinished...\n" << r << " edges removed.\n"
-              << this->mesh->number_of_edges() << " final edges.\n";
-    std::cout << this->mesh->number_of_vertices() << " final vertices.\n";
 
+    if (this->visible) {
+        std::cout << "\nFinished...\n" << r << " edges removed.\n"
+                  << this->mesh->number_of_edges() << " final edges.\n";
+        std::cout << this->mesh->number_of_vertices() << " final vertices.\n";
+    }
 }
 
-void MeshSimplify::save(string& out_path) {
+
+void MeshSimplify::save_mesh(string& out_path) {
     ofstream os(out_path);
     os << *(this->mesh);
+}
+
+
+int MeshSimplify::to_xyz_norm(string &out_path) {
+//    ofstream out(out_path);
+//    if (!out ||
+//        !CGAL::write_xyz_points(
+//                out, points,
+//                CGAL::parameters::point_map(CGAL::First_of_pair_property_map<Pwn>()).
+//                        normal_map(CGAL::Second_of_pair_property_map<Pwn>())))
+//    {
+//        return EXIT_FAILURE;
+//    }
+}
+
+int MeshSimplify::save_xyz(string &out_path) {
+
 }
