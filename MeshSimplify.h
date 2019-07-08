@@ -31,7 +31,8 @@ public:
     string out_path;
     bool visible;
     Surface_mesh *mesh = nullptr;
-    MeshSimplify(string path="", string out_path = "", bool visible = false);
+
+    MeshSimplify(string path, string out_path, bool visible = false);
     ~MeshSimplify();
 
     void simplify(int num_points);
